@@ -68,4 +68,38 @@ FROM world
 WHERE area > 3000000
 	XOR population > 250000000
 
---
+-- Show the name and population in millions and the GDP in billions for the countries of the continent 'South America'.
+SELECT name
+	,round(population / 1000000, 2)
+	,round(gdp / 1000000000, 2)
+FROM world
+WHERE continent = 'South America'
+
+-- Show the name and per-capita GDP for those countries with a GDP of at least one trillion (1000000000000; that is 12 zeros). Round this value to the nearest 1000.
+SELECT name
+	,round(gdp / population, - 3)
+FROM world
+WHERE gdp >= 1000000000000
+
+-- Greece has capital Athens. Each of the strings 'Greece', and 'Athens' has 6 characters.Show the name and capital where the name and the capital have the same number of characters.
+SELECT name
+	,capital
+FROM world
+WHERE length(name) = length(capital)
+
+-- The capital of Sweden is Stockholm. Both words start with the letter 'S'.Show the name and the capital where the first letters of each match. Don't include countries where the name and the capital are the same word.
+SELECT name
+	,capital
+FROM world
+WHERE left(name, 1) = left(capital, 1)
+	AND name <> capital
+
+--Find the country that has all the vowels and no spaces in its name.
+SELECT name
+FROM world
+WHERE name LIKE '%a%'
+	AND name LIKE '%e%'
+	AND name LIKE '%i%'
+	AND name LIKE '%o%'
+	AND name LIKE '%u%'
+	AND name NOT LIKE '% %'
